@@ -36,14 +36,14 @@ public class MainActivity extends Activity {
 	}
 	public void sendMessage(View view){
 		 queue = Volley.newRequestQueue(this);
-		String url = "http://10.0.2.2:4567";
+		String url = "http://10.0.2.2:4567/";
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
 			@Override
 			public void onResponse(JSONObject response) {
 				// TODO Auto-generated method stub
 				change = (TextView) findViewById(R.id.change);
-				change.setText(response.toString());
+				change.setText("niceone"+response.toString());
 				
 			}
 		}, new Response.ErrorListener() {
@@ -51,7 +51,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onErrorResponse(VolleyError error) {
 				// TODO Auto-generated method stub
-				
+				change = (TextView) findViewById(R.id.change);
+				change.setText("niceone123");
 			}
 		});
 		
