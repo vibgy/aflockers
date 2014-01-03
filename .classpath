@@ -5,6 +5,9 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/home/db/adt-bundle-linux-x86-20131030/json-simple-1.1.1.jar"/>
+=======
+>>>>>>> 56c49a47d2b3545c579ea2f32b006d470953be61
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -9,6 +9,7 @@
     tools:context=".MainActivity" >
 
     <TextView
+<<<<<<< HEAD
         android:id="@+id/passwordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,3 +78,16 @@
 	    />
 
 </RelativeLayout>
+=======
+        android:id="@+id/change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+    <Button 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world"
+        android:onClick="sendMessage" />
+    	
+</RelativeLayout>
+>>>>>>> 56c49a47d2b3545c579ea2f32b006d470953be61

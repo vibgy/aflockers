@@ -1,6 +1,7 @@
 int dimen activity_horizontal_margin 0x7f040000
 int dimen activity_vertical_margin 0x7f040001
 int drawable ic_launcher 0x7f020000
+<<<<<<< HEAD
 int id action_settings 0x7f080006
 int id password 0x7f080003
 int id passwordText 0x7f080000
@@ -8,14 +9,21 @@ int id signin 0x7f080004
 int id signup 0x7f080005
 int id username 0x7f080002
 int id usernameText 0x7f080001
+=======
+int id action_settings 0x7f080001
+int id change 0x7f080000
+>>>>>>> 56c49a47d2b3545c579ea2f32b006d470953be61
 int layout activity_main 0x7f030000
 int menu main 0x7f070000
 int string action_settings 0x7f050001
 int string app_name 0x7f050000
 int string hello_world 0x7f050002
+<<<<<<< HEAD
 int string passwordt 0x7f050004
 int string signin 0x7f050005
 int string signup 0x7f050006
 int string usernamet 0x7f050003
+=======
+>>>>>>> 56c49a47d2b3545c579ea2f32b006d470953be61
 int style AppBaseTheme 0x7f060000
 int style AppTheme 0x7f060001
