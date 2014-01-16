@@ -25,13 +25,36 @@
      <TextView  
     android:layout_width="fill_parent" 
     android:layout_height="30dp" 
-    android:text="I would like to"
+    android:text="@string/I_would_like_to"
+    
     android:id="@+id/txt1"
-    />    
+    />   
+    
     <Spinner
-    android:id="@+id/spinner"
+    android:id="@+id/verbspinner"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" />
+    
+    <Spinner
+    android:id="@+id/activityspinner"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" />
+    
+    <Spinner
+    android:id="@+id/spinner4"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" />
+    
+    <Button
+        android:id="@+id/CreateEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginRight="17dp"
+        android:onClick="createEvent"
+        android:text="@string/CreateEvent"
+        android:visibility="invisible"/>
+     
     
      </LinearLayout>
      
@@ -42,12 +65,11 @@
     android:orientation="vertical"
     android:paddingTop="60dp"
      >
-     <TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="100dp" 
-    android:text="This is tab 2"
-    android:id="@+id/txt2"
-    />
+         
+     <ListView 
+    android:id="@+id/listview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" /> 
    
      </LinearLayout>
      

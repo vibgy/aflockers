@@ -3,15 +3,24 @@
 
     <string name="app_name">Flockers</string>
     <string name="action_settings">Settings</string>
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
-
+    <string name="show">Show</string>
+    <string name="I_would_like_to">I would like to</string>
+    <string name="CreateEvent">Create Event</string>
+    <string name="title_activity_create_event">CreateEvent</string>
+    <string name="title_activity_event_detail">Event Detail</string>
+    <string name="title_activity_event_search">Search Event</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="ename">Event Name</string>
+    <string name="verb">Verb</string>
+    <string name="activity">Activity</string>
+    <string name="date">Date</string>
+    <string name="place">Place</string>
+    <string name="time">Time</string>
+    <string name="fees">Fees</string>
+    <string name="prize">Prize</string>
+    <string name="description">Description</string>
+    <string name="Create">Create</string>
+    <string name="delete">Delete</string>
+    <string name="participate">Participate</string>
+    
 </resources>
