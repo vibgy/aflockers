@@ -59,13 +59,13 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
 		addListenerOnSpinnerItemSelection();
 		
 		queue = Volley.newRequestQueue(this);
-		String url = "http://10.0.2.2:4567/";
+		String url = "http://10.0.2.2:9292/verbs";
 	    JsonArrayRequest jsObjRequest = new JsonArrayRequest(url,response.verbShowlistener,response.verbShowErrorlistener );
 		queue.add(jsObjRequest);
 	
 		/*my events tab*/
 	
-		String URL= "http://10.0.2.2:4567/show";
+		String URL= "http://10.0.2.2:9292/myEvents.json";
         JsonArrayRequest jsArrRequest = new JsonArrayRequest(URL,response.myEventsOrganisedListlistener
 			, response.myEventsOrganisedListErrorlistener);
 		queue.add(jsArrRequest);
@@ -87,18 +87,17 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
 		@Override
 	    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			queue = Volley.newRequestQueue(this);
-			String url = "http://10.0.2.2:4567/activity";
+			String url = "http://10.0.2.2:9292/activities?verb=" + selected;
 			JSONObject obj = new JSONObject();
 			try{
 				selected = parent.getItemAtPosition(pos).toString();
 				Variables.verb=selected;
 				change = (TextView) findViewById(R.id.txt1);
-				obj.put("name",selected);
+				obj.put("verb",selected);
 			}
 			catch(JSONException e){
 			}
-			JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url ,obj,
-				response.activityShowlistener,response.activityShowErrorlistener);
+			JsonArrayRequest jsObjRequest = new JsonArrayRequest(url ,response.activityShowlistener,response.activityShowErrorlistener);
 			queue.add(jsObjRequest);	
 		}
 		@Override

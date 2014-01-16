@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -50,25 +51,26 @@ public class Responses {
 		   }	
 	};
 	
-	Response.Listener<JSONObject> activityShowlistener = new Response.Listener<JSONObject>() {
+	Response.Listener<JSONArray> activityShowlistener = new Response.Listener<JSONArray>() {
 		@Override
-		public void onResponse(JSONObject response) {
+		public void onResponse(JSONArray response) {
 			// TODO Auto-generated method stub
-			try{
-				  JSONArray activities = response.getJSONArray("make");
+			try{				  
 				  Spinner spinner2 = (Spinner) activity.findViewById(R.id.activityspinner);	
 				  spinner2.setVisibility(View.VISIBLE);
-				  List<String> list = new ArrayList<String>();
 				  
-				  for (int i =0; i<activities.length(); i++){
-				  JSONObject obj2 = activities.getJSONObject(i);
-			      list.add(""+obj2.get("activity"));
+				  List<String> list = new ArrayList<String>();
+				  for (int i =0; i<response.length(); i++){
+				      JSONObject obj2 = response.getJSONObject(i);
+				      list.add(""+obj2.get("activity"));
 				  }
+				  
 				  ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item, list);
 				  dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				  spinner2.setAdapter(dataAdapter);            
 				}
-			catch(JSONException pe){				
+			catch(JSONException e){
+			    e.printStackTrace();
 			}
 		}
 	};
@@ -99,18 +101,21 @@ public class Responses {
 	Response.ErrorListener verbShowErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {
+            Log.e("ERROR", "error getting " + ": " + error);
 		}
 	};
 	
 	Response.ErrorListener activityShowErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {
+            Log.e("ERROR", "error getting " + ": " + error);
 		}
 	};
 	
 	Response.ErrorListener myEventsOrganisedListErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {
+            Log.e("ERROR", "error getting " + ": " + error);
 		}
 	};
 }
