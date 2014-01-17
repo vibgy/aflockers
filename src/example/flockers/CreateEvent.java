@@ -43,7 +43,7 @@ public class CreateEvent extends Activity{
 	}
 	public void create(View view){
 		// TODO Auto-generated method stubqueue = Volley.newRequestQueue(this);
-		String url = "http://10.0.2.2:4567/CreateEvent";
+		String url = "http://10.0.2.2:9292/events";
 		JSONObject obj = new JSONObject();
 		try{
 			ename=(EditText) findViewById(R.id.ename);
