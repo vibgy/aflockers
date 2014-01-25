@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,23 +48,23 @@ public class CreateEvent extends Activity{
 		JSONObject obj = new JSONObject();
 		try{
 			ename=(EditText) findViewById(R.id.ename);
-			obj.put("Ename",(""+ename.getText()));
-			obj.put("Verb",message[0]);
+			obj.put("ename",(""+ename.getText()));
+			obj.put("verb",message[0]);
 			abc = (TextView) findViewById(R.id.txt1);
 			abc.setText(message[1]);
-			obj.put("Activity",message[1]);
+			obj.put("activity",message[1]);
 			date=(EditText) findViewById(R.id.date);
-			obj.put("Date",(""+date.getText()));
+			obj.put("date",(""+date.getText()));
 			time=(EditText) findViewById(R.id.time);
-			obj.put("Time",(""+time.getText()));
+			obj.put("time",(""+time.getText()));
 			place=(EditText) findViewById(R.id.place);
-			obj.put("Place",(""+place.getText()));
+			obj.put("place",(""+place.getText()));
 			fees=(EditText) findViewById(R.id.fees);
-			obj.put("Fees",(""+fees.getText()));
+			obj.put("fees",(""+fees.getText()));
 			prize=(EditText) findViewById(R.id.prize);
-			obj.put("Prize",(""+prize.getText()));
+			obj.put("prize",(""+prize.getText()));
 			description=(EditText) findViewById(R.id.description);
-			obj.put("Description",(""+description.getText()));
+			obj.put("description",(""+description.getText()));
 		}
 		catch(JSONException e){
 		}
@@ -71,6 +72,16 @@ public class CreateEvent extends Activity{
 			new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {
+					try{
+						if(response.get("failure").toString().compareTo("Failure")==0){
+							Toast toast = Toast.makeText(getApplicationContext(),"Event Cannot be Created",Toast.LENGTH_SHORT);
+							toast.show();
+						}
+					}
+					catch(Exception e){
+						SendIntent s1=new SendIntent(getApplicationContext());
+						s1.redirectMyEvents();
+					}
 				}
 			},new Response.ErrorListener() {
 

@@ -1,7 +1,16 @@
 package example.flockers;
 
 import org.json.JSONException;
+
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -10,17 +19,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
-import android.widget.TextView;
-
 public class EventSearch extends Activity {
 	String message[] = new String[7];
 	TextView ename,date,time,place,fees,prize,description;
 	public RequestQueue queue;
+	Activity activty= this;
+	Context context=this;
+	Responses response1 = new Responses(activty,context);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +69,10 @@ public class EventSearch extends Activity {
 				@Override
 				public void onResponse(JSONObject response) {
 					// TODO Auto-generated method stub
-				}
+					SendIntent s1=new SendIntent(context);
+					s1.participate();
+					
+					}
 			},new Response.ErrorListener() {
 
 				@Override

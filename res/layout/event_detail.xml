@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/ty" >
       
     <TextView
         android:id="@+id/ename"
@@ -96,6 +97,9 @@
         android:layout_marginBottom="32dp"
         android:layout_marginRight="17dp"
         android:onClick="delete"
-        android:text="@string/delete" />
-
+        android:text="@string/delete" 
+        android:textColor="#fff"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginLeft="70dp"/>
+    
 </LinearLayout>

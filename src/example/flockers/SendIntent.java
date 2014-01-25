@@ -10,6 +10,15 @@ public class SendIntent {
 	public SendIntent(Context context){
 		this.context = context;
 	}
+	public void login()
+	{
+		Intent intent = new Intent(context, MainActivity.class);
+		context.startActivity(intent);
+	}
+	public void signup(){
+		Intent intent = new Intent(context, SignUp.class);
+		context.startActivity(intent);		
+	}
 	public void eventClick(View view){
 		Intent intent = new Intent(context, CreateEvent.class);
 		String message[] = new String[2];
@@ -18,9 +27,9 @@ public class SendIntent {
 		intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
 		context.startActivity(intent);
 		}
-	public void eventDetail(String ename,String date,String time,String place,String fees,String prize,String description){
+	public void eventDetail(String ename,String date,String time,String place,String fees,String prize,String description,int id){
 		Intent intent = new Intent(context, EventDetail.class);
-		String message[]=new String[7];
+		String message[]=new String[8];
 		message[0]=ename;
 		message[1]=date;
 		message[2]=time;
@@ -28,6 +37,7 @@ public class SendIntent {
 		message[4]=fees;
 		message[5]=prize;
 		message[6]=description;
+		message[7]=""+id;
 		intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
 		context.startActivity(intent);
 	}
@@ -42,6 +52,24 @@ public class SendIntent {
 		message[5]=prize;
 		message[6]=description;
 		intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
+		context.startActivity(intent);
+	}
+	public void participate(){
+		Intent intent = new Intent(context, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		intent.putExtra(MainActivity.EXTRA_MESSAGE, "1");
+		context.startActivity(intent);
+	}
+	public void redirectlogin(){
+		Intent intent = new Intent(context, LoginActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.putExtra(MainActivity.EXTRA_MESSAGE, "1");
+		context.startActivity(intent);
+	}
+	public void redirectMyEvents(){
+		Intent intent = new Intent(context, MainActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.putExtra(MainActivity.EXTRA_MESSAGE, "1");
 		context.startActivity(intent);
 	}
 }

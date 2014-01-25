@@ -1,7 +1,5 @@
 package example.flockers;
 
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -21,14 +19,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 public class EventDetail extends Activity{
-	String message[] = new String[7];
+	String message[] = new String[8];
 	TextView ename,date,time,place,fees,prize,description;
 	public RequestQueue queue;
+	Intent intent = getIntent();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Intent intent = getIntent();
 		message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
 		setContentView(R.layout.event_detail);
 		
@@ -56,14 +54,9 @@ public class EventDetail extends Activity{
 	}
 	public void delete(View view){
 		queue = Volley.newRequestQueue(this);
-		String url = "http://10.0.2.2:4567/delete";
-		JSONObject obj = new JSONObject();
-		try{
-			obj.put("name",message[0]);
-		}
-		catch(JSONException e){
-		}
-		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url ,obj,
+		message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
+		String url = "http://10.0.2.2:9292/events?event_id="+message[7];
+		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.DELETE,url ,null,
 			new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {
