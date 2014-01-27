@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -22,7 +23,8 @@ import com.android.volley.toolbox.Volley;
 
 public class LoginActivity extends Activity {
 
-	TextView unameText ;
+	private static final String TAG = "LoginActivity";
+    TextView unameText ;
 	RequestQueue queue ;
 	Context context=this;
 	@Override
@@ -48,16 +50,16 @@ public class LoginActivity extends Activity {
 		String uname,pass;
 		uname=((EditText) findViewById(R.id.username)).getText().toString();
 		pass=((EditText) findViewById(R.id.password)).getText().toString();
-		String url = "http://10.0.2.2:9292/login?user_name="+uname+"&pass="+pass;
-		//JSONObject obj = new JSONObject();
-		//try{
-			//obj.put("user_name",((EditText) findViewById(R.id.username)).getText() );		
-			//obj.put("pass",((EditText) findViewById(R.id.password)).getText() );
-		//}
-		//catch(JSONException e){
-  
-		//}
-		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url ,null,
+		String url = "http://10.0.2.2:9292/login";//?user_name="+uname+"&pass="+pass;
+		JSONObject obj = new JSONObject();
+		try{
+			obj.put("user_name",((EditText) findViewById(R.id.username)).getText() );		
+			obj.put("pass",((EditText) findViewById(R.id.password)).getText() );
+		}
+		catch(JSONException e){
+            Log.e(TAG, "JSON Object put failed");
+		}
+		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url ,obj,
 			new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {
@@ -80,7 +82,7 @@ public class LoginActivity extends Activity {
 
 				@Override
 				public void onErrorResponse(VolleyError error) {
-					
+				    Log.e(TAG, "Login failed");
 				}
 			});
 		queue.add(jsObjRequest);	
