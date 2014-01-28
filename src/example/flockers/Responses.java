@@ -148,20 +148,25 @@ public class Responses {
 		   }
 	};
 	
-	Response.Listener<JSONObject> eventShowlistener = new Response.Listener<JSONObject>() {
+	Response.Listener<JSONArray> eventShowlistener = new Response.Listener<JSONArray>() {
 		@Override
-		public void onResponse(JSONObject response) {
+		public void onResponse(JSONArray response) {
 			// TODO Auto-generated method stub
 			try{
-				if(response.isNull("status")){
-					 String eventsArray[];
-					  JSONArray activities=response.getJSONArray("activity");
+				if(response.length()==0){
+					Toast.makeText(context, "No Matches Found,Create Your Own Event", Toast.LENGTH_LONG).show();
+					Button CreateEvent=(Button)activity.findViewById(R.id.CreateEvent);
+					CreateEvent.setVisibility(View.VISIBLE);
+				}
+				else{
+					  String eventsArray[];
+					  //JSONArray activities=response.getJSONArray("activity");
 					  eventsArray = new String[response.length()];
 					  Button CreateEvent=(Button)activity.findViewById(R.id.CreateEvent);
 					  CreateEvent.setVisibility(View.VISIBLE);
 					  ListView eventlist = (ListView) activity.findViewById(R.id.eventlist);
-					  for (int i =0; i<activities.length(); i++){
-					  JSONObject obj2 = activities.getJSONObject(i);
+					  for (int i =0; i<response.length(); i++){
+					  JSONObject obj2 = response.getJSONObject(i);
 				      eventsArray[i] = obj2.get("ename").toString();
 					  }
 					  TextView updateString=(TextView) activity.findViewById(R.id.txt1);
@@ -173,14 +178,6 @@ public class Responses {
 					  ((ListView) activity.findViewById(R.id.eventlist)).setVisibility(View.VISIBLE);
 					  eventlist.setOnItemClickListener(new EventSelectedListener(activity,context));
 				}
-				else{
-					if(response.getString("status").compareTo("Failure")==0){
-						Toast.makeText(context, "No Matches Found,Create Your Own Event", Toast.LENGTH_LONG).show();
-						Button CreateEvent=(Button)activity.findViewById(R.id.CreateEvent);
-						CreateEvent.setVisibility(View.VISIBLE);
-					}
-				}
-				
 			}
 			catch(JSONException pe){
 				Toast.makeText(context, "No Matches Found,exception occur", Toast.LENGTH_LONG).show();

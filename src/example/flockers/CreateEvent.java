@@ -44,8 +44,9 @@ public class CreateEvent extends Activity{
 	}
 	public void create(View view){
 		// TODO Auto-generated method stubqueue = Volley.newRequestQueue(this);
-		String url = "http://10.0.2.2:9292/events";
+		String url = "http://10.0.2.2:9292/users/events";
 		JSONObject obj = new JSONObject();
+		JSONObject event = new JSONObject();
 		try{
 			ename=(EditText) findViewById(R.id.ename);
 			obj.put("ename",(""+ename.getText()));
@@ -65,10 +66,11 @@ public class CreateEvent extends Activity{
 			obj.put("prize",(""+prize.getText()));
 			description=(EditText) findViewById(R.id.description);
 			obj.put("description",(""+description.getText()));
+			event.put("event",obj);
 		}
 		catch(JSONException e){
 		}
-		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url ,obj,
+		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url ,event,
 			new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {

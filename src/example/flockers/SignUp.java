@@ -79,6 +79,8 @@ public class SignUp extends Activity{
 
 				@Override
 				public void onErrorResponse(VolleyError error) {
+					Toast toast = Toast.makeText(getApplicationContext(),"Response not coming",Toast.LENGTH_SHORT);
+					toast.show();
 				}
 			});
 		queue.add(jsObjRequest);	

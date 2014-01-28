@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 public class ActivitySelectedListener implements OnItemClickListener {
@@ -26,8 +26,8 @@ public class ActivitySelectedListener implements OnItemClickListener {
 		Responses response = new Responses(activity,context);
 		queue = Volley.newRequestQueue(context);
 		Variables.selectedActivity = parent.getItemAtPosition(position).toString();
-		String url = "http://10.0.2.2:9292/searchEventByActivity?record="+Variables.selectedActivity;
-		JsonObjectRequest jsObjRequest = new JsonObjectRequest(url ,null,
+		String url = "http://10.0.2.2:9292/events/searchByActivity?record="+Variables.selectedActivity;
+		JsonArrayRequest jsObjRequest = new JsonArrayRequest(url,
 				response.eventShowlistener,response.eventShowErrorlistener);
 			queue.add(jsObjRequest);	
 	
