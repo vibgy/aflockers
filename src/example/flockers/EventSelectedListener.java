@@ -1,7 +1,11 @@
 package example.flockers;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -11,7 +15,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 public class EventSelectedListener implements OnItemClickListener {
-	public Activity activity;
+	private static final String TAG = "EventSelectedListener";
+    public Activity activity;
 	public Context context;
 	public RequestQueue queue;
 	String selected;
@@ -23,11 +28,17 @@ public class EventSelectedListener implements OnItemClickListener {
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int pos,long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
 		Responses response = new Responses(activity,context);
 		queue = Volley.newRequestQueue(context);
-		Variables.selectedEvent = parent.getItemAtPosition(pos).toString();
-		String url = "http://10.0.2.2:9292/eventDetail?record="+Variables.selectedEvent;
+        JSONObject obj2;
+        try {
+            obj2 = (JSONObject) parent.getItemAtPosition(pos);
+            Variables.selectedEvent = obj2.get("id").toString();
+        } catch (JSONException e) {
+            Log.e(TAG, "cant get the id of event");
+        }
+		String url = "http://10.0.2.2:9292/events/"+Variables.selectedEvent;
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(url,null, response.eventDetailShowListener,response.eventDetailShowErrorlistener);
 		queue.add(jsObjRequest);
 	}

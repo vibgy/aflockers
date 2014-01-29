@@ -55,12 +55,12 @@ public class MainActivity extends Activity{
 	
 		//My Events Tab
 	
-		String URL= "http://10.0.2.2:9292/myEvents.json";
+		String URL= "http://10.0.2.2:9292/users/events";
         JsonArrayRequest myEventsRequest1 = new JsonArrayRequest(URL,response.myEventsOrganisedListlistener
 			,response.myEventsOrganisedListErrorlistener);
 		queue.add(myEventsRequest1);
 	
-	    String Url= "http://10.0.2.2:9292/participationEvents.json";
+	    String Url= "http://10.0.2.2:9292/users/events/participant";
         JsonArrayRequest myEventsRequest = new JsonArrayRequest(Url,response.myEventsParticipatedListlistener
 		,response.myEventsParticipatedListErrorlistener);
 	     queue.add(myEventsRequest);

@@ -10,9 +10,11 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +24,8 @@ import com.android.volley.VolleyError;
 
 public class Responses {
 
-	Activity activity;
+	protected static final String TAG = "Responses";
+    Activity activity;
 	Context context;
 	ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -86,7 +89,7 @@ public class Responses {
 				expListView.setOnItemClickListener(new MyEventsOrganisedSelectedListener(activity,context));
 			    }
 			catch(Exception e){
-				
+				Log.e(TAG, "myEventsParticipatedListlistener failed");
 			}
 			
 		   }
@@ -95,30 +98,33 @@ public class Responses {
 	Response.Listener<JSONObject> eventDetailShowListener = new Response.Listener<JSONObject>(){
 		@Override
 		public void onResponse(JSONObject response) {
+		    Log.e(TAG, "show event details");
 			// TODO Auto-generated method stub
-			//try{
-				//if(response.has("status"))
-				//{
-					//if(response.get("status").toString().compareTo("Failure")==0){
+			try {
+				if(response.has("status"))
+				{
+					if(response.get("status").toString().compareTo("Failure")==0) {
 						Toast.makeText(context, "No Details Associated With this Event", Toast.LENGTH_LONG).show();
-					//}
-				//}
-				/*else{
-				String ename = response.get("ename").toString();
-				String date=response.get("date").toString();
-				String time=response.get("time").toString();
-				String place=response.get("place").toString();
-				String fees=response.get("fees").toString();
-				String prize=response.get("prize").toString();
-				String description=response.get("description").toString();
-				
-				SendIntent obj=new SendIntent(context);
-				obj.eventSearch(ename,date,time,place,fees,prize,description);
-			    }*/
-			//}
-				//catch(Exception e){
-					//e.printStackTrace();
-				//}
+					}
+				}
+				else 
+				{
+    				String ename = response.get("ename").toString();
+    				String date=response.get("date").toString();
+    				String time=response.get("time").toString();
+    				String place=response.get("place").toString();
+    				String fees=response.get("fees").toString();
+    				String prize=response.get("prize").toString();
+    				String description=response.get("description").toString();
+    				int id = response.getInt("id");
+    				
+    				SendIntent obj=new SendIntent(context);
+    				obj.eventDetail(ename,date,time,place,fees,prize,description, id);
+			    }
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	};
 			
@@ -151,37 +157,41 @@ public class Responses {
 	Response.Listener<JSONArray> eventShowlistener = new Response.Listener<JSONArray>() {
 		@Override
 		public void onResponse(JSONArray response) {
-			// TODO Auto-generated method stub
-			try{
-				if(response.length()==0){
-					Toast.makeText(context, "No Matches Found,Create Your Own Event", Toast.LENGTH_LONG).show();
-					Button CreateEvent=(Button)activity.findViewById(R.id.CreateEvent);
-					CreateEvent.setVisibility(View.VISIBLE);
-				}
-				else{
-					  String eventsArray[];
-					  //JSONArray activities=response.getJSONArray("activity");
-					  eventsArray = new String[response.length()];
-					  Button CreateEvent=(Button)activity.findViewById(R.id.CreateEvent);
-					  CreateEvent.setVisibility(View.VISIBLE);
-					  ListView eventlist = (ListView) activity.findViewById(R.id.eventlist);
-					  for (int i =0; i<response.length(); i++){
-					  JSONObject obj2 = response.getJSONObject(i);
-				      eventsArray[i] = obj2.get("ename").toString();
-					  }
-					  TextView updateString=(TextView) activity.findViewById(R.id.txt1);
-					  updateString.setText("I Would Like To "+Variables.verb+" "+Variables.selectedActivity);
-					  MyArrayAdapter adapter = new MyArrayAdapter(activity,eventsArray); 
-					  eventlist.setAdapter(adapter);          
-					  ((ListView) activity.findViewById(R.id.verblist)).setVisibility(View.GONE);
-					  ((ListView) activity.findViewById(R.id.activitylist)).setVisibility(View.GONE);
-					  ((ListView) activity.findViewById(R.id.eventlist)).setVisibility(View.VISIBLE);
-					  eventlist.setOnItemClickListener(new EventSelectedListener(activity,context));
-				}
-			}
-			catch(JSONException pe){
-				Toast.makeText(context, "No Matches Found,exception occur", Toast.LENGTH_LONG).show();
-			}
+			if(response.length()==0){
+            	Toast.makeText(context, "No Matches Found,Create Your Own Event", Toast.LENGTH_LONG).show();
+            	Button CreateEvent=(Button)activity.findViewById(R.id.CreateEvent);
+            	CreateEvent.setVisibility(View.VISIBLE);
+            }
+            else{
+                //String eventsArray[];
+                //JSONArray activities=response.getJSONArray("activity");
+                //eventsArray = new String[response.length()];
+                ArrayList<JSONObject> items = new ArrayList<JSONObject>();
+                Button CreateEvent=(Button)activity.findViewById(R.id.CreateEvent);
+                CreateEvent.setVisibility(View.VISIBLE);
+                ListView eventlist = (ListView) activity.findViewById(R.id.eventlist);
+
+                for (int i =0; i < response.length(); i++){
+                    JSONObject obj2 = null;
+                    try {
+                        obj2 = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                    items.add(obj2);
+                }
+                
+                TextView updateString=(TextView) activity.findViewById(R.id.txt1);
+                updateString.setText("I would love to "+Variables.verb+" "+Variables.selectedActivity);
+                
+                MyJsonArrayAdapter adapter = new MyJsonArrayAdapter(activity, items); 
+                eventlist.setAdapter(adapter);
+                ((ListView) activity.findViewById(R.id.verblist)).setVisibility(View.GONE);
+                ((ListView) activity.findViewById(R.id.activitylist)).setVisibility(View.GONE);
+                ((ListView) activity.findViewById(R.id.eventlist)).setVisibility(View.VISIBLE);
+                eventlist.setOnItemClickListener(new EventSelectedListener(activity,context));
+            }
 		}
 
 	};
@@ -255,6 +265,7 @@ public class Responses {
 	Response.ErrorListener eventDetailShowErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {
+            Log.e(TAG, "eventDetail errored");
 		}
 	};
 	

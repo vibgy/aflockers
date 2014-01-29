@@ -57,7 +57,7 @@ public class EventSearch extends Activity {
 	}
 	public void participate(View view){
 		queue = Volley.newRequestQueue(this);
-		String url = "http://10.0.2.2:4567/participate";
+		String url = "http://10.0.2.2:9292/users/events/participant";
 		JSONObject obj = new JSONObject();
 		try{
 			obj.put("name",message[0]);
