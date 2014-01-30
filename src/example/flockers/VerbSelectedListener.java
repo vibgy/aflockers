@@ -25,7 +25,7 @@ public class VerbSelectedListener implements OnItemClickListener{
 		Responses response = new Responses(activity,context);
 		queue = Volley.newRequestQueue(context);
 		Variables.verb = parent.getItemAtPosition(position).toString();
-		String url = "http://10.0.2.2:9292/activities?verb="+ Variables.verb;
+		String url = MainActivity.SERVER_ADDRESS + "/activities?verb="+ Variables.verb;
 		JsonArrayRequest jsObjRequest = new JsonArrayRequest (url,response.activityShowlistener, response.activityShowErrorlistener);
 		queue.add(jsObjRequest);	
 	}

@@ -38,7 +38,7 @@ public class SignUp extends Activity{
 	}
 	public void Signup(View view){
 		// TODO Auto-generated method stubqueue = Volley.newRequestQueue(this);
-		String url = "http://10.0.2.2:9292/signup";
+		String url = MainActivity.SERVER_ADDRESS + "/signup";
 		JSONObject obj = new JSONObject();
 		try{
 			username=(EditText) findViewById(R.id.uname);

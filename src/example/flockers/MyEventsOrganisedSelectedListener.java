@@ -24,7 +24,7 @@ public class MyEventsOrganisedSelectedListener implements OnItemClickListener{
 		Responses response = new Responses(activity,context);
 		queue = Volley.newRequestQueue(context);
 		selected = parent.getItemAtPosition(position).toString();
-		String url = "http://10.0.2.2:9292/events/"+Variables.selectedEvent;
+		String url = MainActivity.SERVER_ADDRESS + "/events/"+Variables.selectedEvent;
 		JsonObjectRequest jsObjRequest = new JsonObjectRequest(url ,null
 				,response.MyeventShow,response.MyeventShowErrorListener);
 		queue.add(jsObjRequest);	

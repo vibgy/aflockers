@@ -46,7 +46,7 @@ public class CreateEvent extends Activity{
     }
     public void create(View view){
         // TODO Auto-generated method stubqueue = Volley.newRequestQueue(this);
-        String url = "http://10.0.2.2:9292/users/events";
+        String url = MainActivity.SERVER_ADDRESS + "/users/events";
         JSONObject obj = new JSONObject();
         JSONObject event = new JSONObject();
         try{

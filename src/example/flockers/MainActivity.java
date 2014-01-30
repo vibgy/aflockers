@@ -19,6 +19,7 @@ public class MainActivity extends Activity{
 	Activity activty= this;
 	Context context=this;
 	public final static String EXTRA_MESSAGE = "example.flockers.MESSAGE";
+	public final static String SERVER_ADDRESS = "http://10.0.2.2:9292";
 	Responses response = new Responses(activty,context);
 	TabHost tabHost;
 
@@ -49,18 +50,18 @@ public class MainActivity extends Activity{
 		
 		// Search Tab 
 		queue = Volley.newRequestQueue(this);
-		String url = "http://10.0.2.2:9292/verbs";
+		String url = MainActivity.SERVER_ADDRESS + "/verbs";
 	    JsonArrayRequest searchTabverbRequest = new JsonArrayRequest(url,response.verbShowlistener,response.verbShowErrorlistener );
 		queue.add(searchTabverbRequest);
 	
 		//My Events Tab
 	
-		String URL= "http://10.0.2.2:9292/users/events";
+		String URL= MainActivity.SERVER_ADDRESS + "/users/events";
         JsonArrayRequest myEventsRequest1 = new JsonArrayRequest(URL,response.myEventsOrganisedListlistener
 			,response.myEventsOrganisedListErrorlistener);
 		queue.add(myEventsRequest1);
 	
-	    String Url= "http://10.0.2.2:9292/users/events/participant";
+	    String Url= MainActivity.SERVER_ADDRESS + "/users/events/participant";
         JsonArrayRequest myEventsRequest = new JsonArrayRequest(Url,response.myEventsParticipatedListlistener
 		,response.myEventsParticipatedListErrorlistener);
 	     queue.add(myEventsRequest);

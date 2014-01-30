@@ -50,7 +50,7 @@ public class LoginActivity extends Activity {
 		//String uname,pass;
 		//uname=((EditText) findViewById(R.id.username)).getText().toString();
 		//pass=((EditText) findViewById(R.id.password)).getText().toString();
-		String url = "http://10.0.2.2:9292/login";//?user_name="+uname+"&pass="+pass;
+		String url = MainActivity.SERVER_ADDRESS + "/login";//?user_name="+uname+"&pass="+pass;
 		JSONObject obj = new JSONObject();
 		try{
 			obj.put("user_name",((EditText) findViewById(R.id.username)).getText() );		

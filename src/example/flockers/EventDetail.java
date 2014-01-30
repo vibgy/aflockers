@@ -56,7 +56,7 @@ public class EventDetail extends Activity{
         queue = Volley.newRequestQueue(this);
         Intent intent = getIntent();
         message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
-        String url = "http://10.0.2.2:9292/events/"+message[7];
+        String url = MainActivity.SERVER_ADDRESS + "/events/"+message[7];
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.DELETE,url ,null,
           new Response.Listener<JSONObject>() {
             @Override
