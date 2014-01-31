@@ -34,22 +34,28 @@
 	    android:layout_height="wrap_content"
 	    android:layout_alignRight="@+id/password"
 	    android:layout_below="@+id/password"
-	    android:layout_marginTop="42dp" 
+	    android:layout_marginTop="30dp" 
 	    android:onClick="login"
 	    android:text="@string/signin"
 	    android:textColor="#fff"
         android:background="@drawable/rounded_edittext"
 	    />
+
+	<TextView 
+	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
+	    android:text="@string/noAccountHelp"
+	    android:layout_above="@+id/signup"
+	    />"
+	
 	<Button 
 	    android:id="@+id/signup"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_alignRight="@+id/password"
-	    android:layout_below="@+id/password"
-	    android:layout_marginTop="110dp" 
 	    android:text="@string/signup"
 	    android:textColor="#fff"
         android:background="@drawable/rounded_edittext"
+        android:layout_alignParentBottom="true"
         android:onClick="signup"
 	    />
 
