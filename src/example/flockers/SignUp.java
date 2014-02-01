@@ -15,7 +15,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 public class SignUp extends Activity{
@@ -38,7 +37,7 @@ public class SignUp extends Activity{
 	}
 	public void Signup(View view){
 		// TODO Auto-generated method stubqueue = Volley.newRequestQueue(this);
-		String url = MainActivity.SERVER_ADDRESS + "/signup";
+		String url = "http://10.0.2.2:9292/signup";
 		JSONObject obj = new JSONObject();
 		try{
 			username=(EditText) findViewById(R.id.uname);
@@ -57,7 +56,7 @@ public class SignUp extends Activity{
 		}
 		catch(JSONException e){
 		}
-		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url ,obj,
+		request jsObjRequest = new request(Request.Method.POST, url ,obj,
 			new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {

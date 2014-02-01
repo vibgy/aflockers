@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +39,14 @@ public class Responses {
 		listDataHeader = new ArrayList<String>();
    	    listDataChild = new HashMap<String, List<String>>();
 	}
+	Response.Listener<JSONObject> launchListener = new Response.Listener<JSONObject>() {
+		@Override
+		   public void onResponse(JSONObject response)
+		   {
+				SendIntent s1 = new SendIntent(context);
+				s1.login();
+		   }
+	};
 	Response.Listener<JSONArray> myEventsOrganisedListlistener = new Response.Listener<JSONArray>(){
 		@Override
 		   public void onResponse(JSONArray response)
@@ -275,6 +282,13 @@ public class Responses {
 		}
 	};
 	
+	Response.ErrorListener launcherrorListener = new Response.ErrorListener() {
+        @Override
+		public void onErrorResponse(VolleyError error) {
+        	SendIntent s1 = new SendIntent(context);
+        	s1.redirectlogin();
+		}
+	};
 	Response.ErrorListener activityShowErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {

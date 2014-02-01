@@ -1,7 +1,6 @@
 package example.flockers;
 
 import org.json.JSONException;
-
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -16,8 +15,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 
 public class EventSearch extends Activity {
 	String message[] = new String[7];
@@ -57,14 +56,14 @@ public class EventSearch extends Activity {
 	}
 	public void participate(View view){
 		queue = Volley.newRequestQueue(this);
-		String url = MainActivity.SERVER_ADDRESS + "/users/events/participant";
+		String url = "http://10.0.2.2:9292/users/events/participant";
 		JSONObject obj = new JSONObject();
 		try{
 			obj.put("name",message[0]);
 		}
 		catch(JSONException e){
 		}
-		JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url ,obj,
+		request jsObjRequest = new request(Request.Method.POST, url ,obj,
 			new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {

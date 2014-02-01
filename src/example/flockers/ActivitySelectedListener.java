@@ -26,7 +26,7 @@ public class ActivitySelectedListener implements OnItemClickListener {
         Responses response = new Responses(activity,context);
         queue = Volley.newRequestQueue(context);
         Variables.selectedActivity = parent.getItemAtPosition(position).toString();
-        String url = MainActivity.SERVER_ADDRESS + "/events/searchByActivity?record=" + Variables.selectedActivity;
+        String url = "http://10.0.2.2:9292/events/searchByActivity?record="+Variables.selectedActivity;
         JsonArrayRequest jsObjRequest = new JsonArrayRequest(url,
                 response.eventShowlistener,response.eventShowErrorlistener);
         queue.add(jsObjRequest);

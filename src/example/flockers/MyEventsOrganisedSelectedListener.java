@@ -5,9 +5,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 
 public class MyEventsOrganisedSelectedListener implements OnItemClickListener{
 	public Activity activity;
@@ -24,8 +25,8 @@ public class MyEventsOrganisedSelectedListener implements OnItemClickListener{
 		Responses response = new Responses(activity,context);
 		queue = Volley.newRequestQueue(context);
 		selected = parent.getItemAtPosition(position).toString();
-		String url = MainActivity.SERVER_ADDRESS + "/events/"+Variables.selectedEvent;
-		JsonObjectRequest jsObjRequest = new JsonObjectRequest(url ,null
+		String url = "http://10.0.2.2:9292/events/"+Variables.selectedEvent;
+		request jsObjRequest = new request(Request.Method.GET,url ,null
 				,response.MyeventShow,response.MyeventShowErrorListener);
 		queue.add(jsObjRequest);	
     }

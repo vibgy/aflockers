@@ -29,7 +29,6 @@
     <string name="passwordt">Password</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="signin">Sign in</string>
-    <string name="noAccountHelp">"Don't have account?"</string>
     <string name="signup">Sign up</string>
     <string name="uname">User Name</string>
     <string name="title_activity_lauch">Lauch</string>

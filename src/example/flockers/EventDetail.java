@@ -7,16 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-
-
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 
 public class EventDetail extends Activity{
     String message[] = new String[8];
@@ -56,8 +54,8 @@ public class EventDetail extends Activity{
         queue = Volley.newRequestQueue(this);
         Intent intent = getIntent();
         message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
-        String url = MainActivity.SERVER_ADDRESS + "/events/"+message[7];
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.DELETE,url ,null,
+        String url = "http://10.0.2.2:9292/events/"+message[7];
+        request jsObjRequest = new request(Request.Method.DELETE,url ,null,
           new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

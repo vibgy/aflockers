@@ -18,7 +18,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 public class CreateEvent extends Activity{
@@ -46,7 +45,7 @@ public class CreateEvent extends Activity{
     }
     public void create(View view){
         // TODO Auto-generated method stubqueue = Volley.newRequestQueue(this);
-        String url = MainActivity.SERVER_ADDRESS + "/users/events";
+        String url = "http://10.0.2.2:9292/users/events";
         JSONObject obj = new JSONObject();
         JSONObject event = new JSONObject();
         try{
@@ -73,7 +72,7 @@ public class CreateEvent extends Activity{
         catch(JSONException e){
             Log.e(TAG, "create event - something is wrong with json");
         }
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url ,event,
+        request jsObjRequest = new request(Request.Method.POST, url ,event,
                 new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
