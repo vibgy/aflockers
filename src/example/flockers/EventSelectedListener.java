@@ -39,8 +39,7 @@ public class EventSelectedListener implements OnItemClickListener {
             Log.e(TAG, "cant get the id of event");
         }
 		String url = "http://10.0.2.2:9292/events/"+Variables.selectedEvent;
-		request jsObjRequest = new request(Request.Method.GET,url,null, response.eventDetailShowListener,response.eventDetailShowErrorlistener);
-		queue.add(jsObjRequest);
+		BackendSync.getInstance(this.context).addRequest(Request.Method.GET,url,null, response.eventDetailShowListener,response.eventDetailShowErrorlistener);
 	}
 		
 }

@@ -72,7 +72,7 @@ public class CreateEvent extends Activity{
         catch(JSONException e){
             Log.e(TAG, "create event - something is wrong with json");
         }
-        request jsObjRequest = new request(Request.Method.POST, url ,event,
+        BackendSync.getInstance(this).addRequest(Request.Method.POST, url ,event,
                 new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -94,8 +94,6 @@ public class CreateEvent extends Activity{
                 Log.e(TAG, "create event - something is wrong with create event");
             }
         });
-        queue.add(jsObjRequest);	
-
     }
 
 }

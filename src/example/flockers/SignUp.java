@@ -56,7 +56,7 @@ public class SignUp extends Activity{
 		}
 		catch(JSONException e){
 		}
-		request jsObjRequest = new request(Request.Method.POST, url ,obj,
+		BackendSync.getInstance(this).addRequest(Request.Method.POST, url ,obj,
 			new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {
@@ -82,8 +82,6 @@ public class SignUp extends Activity{
 					toast.show();
 				}
 			});
-		queue.add(jsObjRequest);	
-		
 	}
 
 }

@@ -10,6 +10,11 @@ public class SendIntent {
 	public SendIntent(Context context){
 		this.context = context;
 	}
+    public void signin()
+    {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }	
 	public void login()
 	{
 		Intent intent = new Intent(context, MainActivity.class);

@@ -55,7 +55,7 @@ public class EventDetail extends Activity{
         Intent intent = getIntent();
         message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
         String url = "http://10.0.2.2:9292/events/"+message[7];
-        request jsObjRequest = new request(Request.Method.DELETE,url ,null,
+        BackendSync.getInstance(this).addRequest(Request.Method.DELETE,url ,null,
           new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -68,6 +68,5 @@ public class EventDetail extends Activity{
                 // TODO Auto-generated method stub
             }
           });
-        queue.add(jsObjRequest);	
     }
 }

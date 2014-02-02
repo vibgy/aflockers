@@ -57,7 +57,7 @@ public class LoginActivity extends Activity {
 		catch(JSONException e){
             Log.e(TAG, "JSON Object put failed");
 		}
-		request jsObjRequest = new request(Request.Method.POST, url ,obj,
+		BackendSync.getInstance(this).addRequest(Request.Method.POST, url ,obj,
 			new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {
@@ -83,7 +83,6 @@ public class LoginActivity extends Activity {
 				    Log.e(TAG, "Login failed");	
 				}
 			});
-		queue.add(jsObjRequest);	
 	}
 	public void signup(View view){
 		SendIntent s1=new SendIntent(context);
