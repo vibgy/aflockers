@@ -1,4 +1,4 @@
-	package example.flockers;
+package example.flockers;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 public class VerbSelectedListener implements OnItemClickListener{
@@ -26,7 +25,6 @@ public class VerbSelectedListener implements OnItemClickListener{
 		queue = Volley.newRequestQueue(context);
 		Variables.verb = parent.getItemAtPosition(position).toString();
 		String url = "http://10.0.2.2:9292/activities?verb="+ Variables.verb;
-		JsonArrayRequest request = new JsonArrayRequest (url,response.activityShowlistener, response.activityShowErrorlistener);
-		queue.add(request);	
+		BackendSync.getInstance(this.context).addArrayRequest(url,response.activityShowlistener, response.activityShowErrorlistener);
 	}
 };

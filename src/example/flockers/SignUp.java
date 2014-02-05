@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 public class SignUp extends Activity{
@@ -56,14 +57,14 @@ public class SignUp extends Activity{
 		}
 		catch(JSONException e){
 		}
-		request jsObjRequest = new request(Request.Method.POST, url ,obj,
-			new Response.Listener<JSONObject>() {
+		BackendSync.getInstance(this).addRequest(Request.Method.POST, url ,obj,
+				new Response.Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {
 					       try{
 					        if(response.get("success").toString().compareTo("Success")==0){
-						    SendIntent s1=new SendIntent(getApplicationContext());
-							s1.redirectlogin();
+							    SendIntent s1=new SendIntent(getApplicationContext());
+								s1.redirectlogin();
 					        }
 					        else{
 					        	Toast toast = Toast.makeText(getApplicationContext(),"Account Cannot be Created",Toast.LENGTH_SHORT);
@@ -81,9 +82,6 @@ public class SignUp extends Activity{
 					Toast toast = Toast.makeText(getApplicationContext(),"Response not coming",Toast.LENGTH_SHORT);
 					toast.show();
 				}
-			});
-		queue.add(jsObjRequest);	
-		
+			});		
 	}
-
 }

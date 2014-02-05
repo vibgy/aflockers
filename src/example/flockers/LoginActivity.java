@@ -1,6 +1,7 @@
 package example.flockers;
 
 import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -17,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 public class LoginActivity extends Activity {
@@ -57,10 +59,10 @@ public class LoginActivity extends Activity {
 		catch(JSONException e){
             Log.e(TAG, "JSON Object put failed");
 		}
-		request jsObjRequest = new request(Request.Method.POST, url ,obj,
-			new Response.Listener<JSONObject>() {
-				@Override
-				public void onResponse(JSONObject response) {
+		BackendSync.getInstance(this).addRequest(Request.Method.POST, url ,obj,
+				new Response.Listener<JSONObject>() {
+					@Override
+					public void onResponse(JSONObject response) {
 					// TODO Auto-generated method stub
 					try{
 						if(response.has("error")){
@@ -80,10 +82,9 @@ public class LoginActivity extends Activity {
 
 				@Override
 				public void onErrorResponse(VolleyError error) {
-				    Log.e(TAG, "Login failed");	
+				    Log.e(TAG, "Login failed");
 				}
 			});
-		queue.add(jsObjRequest);	
 	}
 	public void signup(View view){
 		SendIntent s1=new SendIntent(context);

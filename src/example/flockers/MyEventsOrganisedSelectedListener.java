@@ -9,7 +9,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-
 public class MyEventsOrganisedSelectedListener implements OnItemClickListener{
 	public Activity activity;
 	public Context context;
@@ -26,8 +25,7 @@ public class MyEventsOrganisedSelectedListener implements OnItemClickListener{
 		queue = Volley.newRequestQueue(context);
 		selected = parent.getItemAtPosition(position).toString();
 		String url = "http://10.0.2.2:9292/events/"+Variables.selectedEvent;
-		request jsObjRequest = new request(Request.Method.GET,url ,null
-				,response.MyeventShow,response.MyeventShowErrorListener);
-		queue.add(jsObjRequest);	
+		BackendSync.getInstance(this.context).addRequest(Request.Method.GET,url ,null
+				,response.MyeventShow,response.MyeventShowErrorListener);	
     }
 }

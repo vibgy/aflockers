@@ -7,9 +7,15 @@ import android.view.View;
 public class SendIntent {
 	
 	private Context context; 
+	static String message[]=new String[8];
 	public SendIntent(Context context){
 		this.context = context;
 	}
+	public void signin()
+    {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }	
 	public void login()
 	{
 		Intent intent = new Intent(context, MainActivity.class);
@@ -28,8 +34,7 @@ public class SendIntent {
 		context.startActivity(intent);
 		}
 	public void eventDetail(String ename,String date,String time,String place,String fees,String prize,String description,int id){
-		Intent intent = new Intent(context, EventDetail.class);
-		String message[]=new String[8];
+		Intent intent = new Intent(context, EventDetail.class);		
 		message[0]=ename;
 		message[1]=date;
 		message[2]=time;
@@ -41,9 +46,8 @@ public class SendIntent {
 		intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
 		context.startActivity(intent);
 	}
-	public void eventSearch(String ename,String date,String time,String place,String fees,String prize,String description){
+	public void eventSearch(String ename,String date,String time,String place,String fees,String prize,String description,int id){
 		Intent intent = new Intent(context, EventSearch.class);
-		String message[]=new String[7];
 		message[0]=ename;
 		message[1]=date;
 		message[2]=time;
@@ -51,6 +55,7 @@ public class SendIntent {
 		message[4]=fees;
 		message[5]=prize;
 		message[6]=description;
+		message[7]=""+id;
 		intent.putExtra(MainActivity.EXTRA_MESSAGE, message);
 		context.startActivity(intent);
 	}

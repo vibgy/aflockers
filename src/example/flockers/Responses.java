@@ -24,12 +24,12 @@ import com.android.volley.VolleyError;
 public class Responses {
 
 	protected static final String TAG = "Responses";
-    Activity activity;
+	Activity activity;
 	Context context;
 	ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    HashMap<String, List<JSONObject>> listDataChild;
     
    
 	public Responses(Activity activity,Context context)
@@ -37,7 +37,7 @@ public class Responses {
 		this.activity = activity;
 		this.context = context;		
 		listDataHeader = new ArrayList<String>();
-   	    listDataChild = new HashMap<String, List<String>>();
+   	    listDataChild = new HashMap<String, List<JSONObject>>();
 	}
 	Response.Listener<JSONObject> launchListener = new Response.Listener<JSONObject>() {
 		@Override
@@ -55,15 +55,18 @@ public class Responses {
 		    	expListView = (ExpandableListView) activity.findViewById(R.id.listview);
 		    	listDataHeader.add("Organized By Me");
 		        listDataHeader.add("Participated By Me");
-		        List<String> organized = new ArrayList<String>();
+		        List<JSONObject> organized = new ArrayList<JSONObject>();
+		        
 		    	if(response.length()==0){
-		    		organized.add("No Organized Events");
+		    		JSONObject ename= new JSONObject();
+			        ename.put("ename","No Organized Events");
+		    		organized.add(ename);
 		    	}
 		    	else{
 		    		for(int i=0;i<response.length();i++){
 						JSONObject actor = response.getJSONObject(i);
 				        // Adding child data
-				        organized.add(actor.getString("ename"));
+				        organized.add(actor);
 		    		}
 		    	}
 		        listDataChild.put(listDataHeader.get(0),organized); // Header, Child data
@@ -79,15 +82,17 @@ public class Responses {
 		   public void onResponse(JSONArray response)
 		   {
 			try{
-				List<String> participated = new ArrayList<String>();
+				List<JSONObject> participated = new ArrayList<JSONObject>();
 				if(response.length() == 0){
-					participated.add("No Participated Events");					  
+					JSONObject participatedo = new JSONObject();
+					participatedo.put("ename", "No Participated Events");
+					participated.add(participatedo);					  
 				  }
 			    else{
 					 for(int i=0;i<response.length();i++){
 				     JSONObject actor = response.getJSONObject(i);
 					 // Adding child data
-					 participated.add(actor.getString("ename"));
+					 participated.add(actor);
 					 }
 			    }
 				listDataChild.put(listDataHeader.get(1), participated);
@@ -272,7 +277,7 @@ public class Responses {
 	Response.ErrorListener eventDetailShowErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {
-            Log.e(TAG, "eventDetail errored");
+        	Toast.makeText(context, "No Details associated", Toast.LENGTH_LONG).show();
 		}
 	};
 	
@@ -282,13 +287,6 @@ public class Responses {
 		}
 	};
 	
-	Response.ErrorListener launcherrorListener = new Response.ErrorListener() {
-        @Override
-		public void onErrorResponse(VolleyError error) {
-        	SendIntent s1 = new SendIntent(context);
-        	s1.redirectlogin();
-		}
-	};
 	Response.ErrorListener activityShowErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {
@@ -305,6 +303,8 @@ public class Responses {
 	Response.ErrorListener myEventsOrganisedListErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {
+        	Toast.makeText(context, "Response not coming", Toast.LENGTH_LONG).show();
+			
 		}
 	};
 	Response.ErrorListener myEventsParticipatedListErrorlistener = new Response.ErrorListener() {

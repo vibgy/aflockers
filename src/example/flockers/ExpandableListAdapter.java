@@ -3,12 +3,16 @@ package example.flockers;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
  
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
@@ -16,10 +20,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context _context;
     private List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> _listDataChild;
+    private HashMap<String, List<JSONObject>> _listDataChild;
  
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
-            HashMap<String, List<String>> listChildData) {
+            HashMap<String, List<JSONObject>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -40,7 +44,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
  
-        final String childText = (String) getChild(groupPosition, childPosition);
+    	JSONObject event =  (JSONObject) getChild(groupPosition, childPosition);
  
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -50,8 +54,22 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
  
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
- 
-        txtListChild.setText(childText);
+        try{
+        	txtListChild.setText(event.getString("ename"));
+        }
+        catch(JSONException e){
+        	
+        }
+        	if(groupPosition == 0){
+        	Button testButton = (Button) convertView.findViewById(R.id.explistbutton);
+        	testButton.setText("I m out");
+        	testButton.setOnClickListener(new expandablelistbuttonlistener(event,_context));
+        }
+        else{
+        	Button testButton = (Button) convertView.findViewById(R.id.explistbutton);
+        	testButton.setText("delete");
+        	testButton.setOnClickListener(new expandablelistdeletelistener(_context,event));
+        }
         return convertView;
     }
  
@@ -90,7 +108,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.lblListHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
- 
+        
+        	
         return convertView;
     }
  

@@ -50,21 +50,17 @@ public class MainActivity extends Activity{
 		// Search Tab 
 		queue = Volley.newRequestQueue(this);
 		String url = "http://10.0.2.2:9292/verbs";
-	    JsonArrayRequest searchTabverbRequest = new JsonArrayRequest(url,response.verbShowlistener,response.verbShowErrorlistener );
-		queue.add(searchTabverbRequest);
+		BackendSync.getInstance(this.context).addArrayRequest(url,response.verbShowlistener,response.verbShowErrorlistener );
 	
 		//My Events Tab
 	
 		String URL= "http://10.0.2.2:9292/users/events";
-        JsonArrayRequest myEventsRequest1 = new JsonArrayRequest(URL,response.myEventsOrganisedListlistener
+		BackendSync.getInstance(this.context).addArrayRequest(URL,response.myEventsOrganisedListlistener
 			,response.myEventsOrganisedListErrorlistener);
-		queue.add(myEventsRequest1);
 	
 	    String Url= "http://10.0.2.2:9292/users/events/participant";
-        JsonArrayRequest myEventsRequest = new JsonArrayRequest(Url,response.myEventsParticipatedListlistener
-		,response.myEventsParticipatedListErrorlistener);
-	     queue.add(myEventsRequest);
-	
+	    BackendSync.getInstance(this.context).addArrayRequest(Url,response.myEventsParticipatedListlistener
+		,response.myEventsParticipatedListErrorlistener);	
 	    }
 	@Override
 	public void onRestart() {

@@ -17,6 +17,12 @@
         android:paddingTop="3dp"
         android:paddingBottom="5dp"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft" />
+    
+    <Button
+        android:id="@+id/explistbutton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+       />
  
     </LinearLayout>  
 </LinearLayout>

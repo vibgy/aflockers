@@ -16,7 +16,7 @@ import com.android.volley.toolbox.Volley;
 
 public class EventSelectedListener implements OnItemClickListener {
 	private static final String TAG = "EventSelectedListener";
-    public Activity activity;
+	public Activity activity;
 	public Context context;
 	public RequestQueue queue;
 	String selected;
@@ -28,7 +28,7 @@ public class EventSelectedListener implements OnItemClickListener {
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int pos,long id) {
 		Responses response = new Responses(activity,context);
 		queue = Volley.newRequestQueue(context);
         JSONObject obj2;
@@ -39,8 +39,7 @@ public class EventSelectedListener implements OnItemClickListener {
             Log.e(TAG, "cant get the id of event");
         }
 		String url = "http://10.0.2.2:9292/events/"+Variables.selectedEvent;
-		request jsObjRequest = new request(Request.Method.GET,url,null, response.eventDetailShowListener,response.eventDetailShowErrorlistener);
-		queue.add(jsObjRequest);
+		BackendSync.getInstance(this.context).addRequest(Request.Method.GET,url,null, response.eventDetailShowListener,response.eventDetailShowErrorlistener);
 	}
 		
 }

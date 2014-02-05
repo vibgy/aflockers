@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,9 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
-
 public class EventSearch extends Activity {
-	String message[] = new String[7];
+	String message[] = new String[8];
 	TextView ename,date,time,place,fees,prize,description;
 	public RequestQueue queue;
 	Activity activty= this;
@@ -59,19 +59,23 @@ public class EventSearch extends Activity {
 		String url = "http://10.0.2.2:9292/users/events/participant";
 		JSONObject obj = new JSONObject();
 		try{
-			obj.put("name",message[0]);
+			obj.put("event",message[7]);
 		}
 		catch(JSONException e){
 		}
-		request jsObjRequest = new request(Request.Method.POST, url ,obj,
-			new Response.Listener<JSONObject>() {
-				@Override
-				public void onResponse(JSONObject response) {
+		BackendSync.getInstance(this).addRequest(Request.Method.POST, url ,obj,
+				new Response.Listener<JSONObject>() {
+					@Override
+					public void onResponse(JSONObject response) {
 					// TODO Auto-generated method stub
-					SendIntent s1=new SendIntent(context);
-					s1.participate();
-					
+					if(response.has("error")){
+						Toast.makeText(context, "Error During Participation", Toast.LENGTH_LONG).show();
 					}
+					else{
+						SendIntent s1=new SendIntent(context);
+						s1.participate();					
+					}
+				}
 			},new Response.ErrorListener() {
 
 				@Override
@@ -79,6 +83,5 @@ public class EventSearch extends Activity {
 					// TODO Auto-generated method stub
 				}
 			});
-		queue.add(jsObjRequest);	
 	}
 }
