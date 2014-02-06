@@ -39,6 +39,14 @@ public class Responses {
 		listDataHeader = new ArrayList<String>();
    	    listDataChild = new HashMap<String, List<JSONObject>>();
 	}
+	Response.Listener<JSONObject> participateListener = new Response.Listener<JSONObject>(){
+		@Override
+		   public void onResponse(JSONObject response)
+		   {
+				SendIntent s1 = new SendIntent(context);
+				s1.login();
+		   }
+	};
 	Response.Listener<JSONObject> launchListener = new Response.Listener<JSONObject>() {
 		@Override
 		   public void onResponse(JSONObject response)
@@ -299,7 +307,11 @@ public class Responses {
 		public void onErrorResponse(VolleyError error) {
 		}
 	};
-	
+	Response.ErrorListener participateErrorlistener = new Response.ErrorListener() {
+        @Override
+		public void onErrorResponse(VolleyError error) {
+		}
+	};
 	Response.ErrorListener myEventsOrganisedListErrorlistener = new Response.ErrorListener() {
         @Override
 		public void onErrorResponse(VolleyError error) {

@@ -68,6 +68,7 @@ public class BackendSync {
         protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
             String cookie = response.headers.get(SET_COOKIE_KEY);
+            if(cookie!=null)
             sp.edit().putString(SESSION_TOKEN_KEY, cookie).commit();
             return super.parseNetworkResponse(response);
         }
@@ -96,6 +97,7 @@ public class BackendSync {
         protected Response<JSONArray> parseNetworkResponse(NetworkResponse response) {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
             String cookie = response.headers.get(SET_COOKIE_KEY);
+            if(cookie!=null)
             sp.edit().putString(SESSION_TOKEN_KEY, cookie).commit();
             return super.parseNetworkResponse(response);
         }

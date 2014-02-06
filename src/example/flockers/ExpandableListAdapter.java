@@ -61,14 +61,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         	
         }
         	if(groupPosition == 0){
+        		Button testButton = (Button) convertView.findViewById(R.id.explistbutton);
+            	testButton.setText("delete");
+            	testButton.setOnClickListener(new expandablelistdeletelistener(_context,event));
+        	 }
+        else{
         	Button testButton = (Button) convertView.findViewById(R.id.explistbutton);
         	testButton.setText("I m out");
         	testButton.setOnClickListener(new expandablelistbuttonlistener(event,_context));
-        }
-        else{
-        	Button testButton = (Button) convertView.findViewById(R.id.explistbutton);
-        	testButton.setText("delete");
-        	testButton.setOnClickListener(new expandablelistdeletelistener(_context,event));
+       
         }
         return convertView;
     }

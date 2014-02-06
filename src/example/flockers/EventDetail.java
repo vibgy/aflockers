@@ -1,8 +1,10 @@
 package example.flockers;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,19 +13,20 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 
 public class EventDetail extends Activity{
-	String message[] = new String[8];
+	String message[] ;
 	TextView ename,date,time,place,fees,prize,description;
+	Activity activity= this;
+	Context context=this;
 	public RequestQueue queue;
-	Intent intent = getIntent();
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		message = new String[8];
+		Intent intent = getIntent();
 		message = intent.getStringArrayExtra(MainActivity.EXTRA_MESSAGE);
 		setContentView(R.layout.event_detail);
 		
@@ -48,6 +51,18 @@ public class EventDetail extends Activity{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	public void participate(View view){
+		Responses response = new Responses(activity,context);
+		String url = "http://10.0.2.2:9292/users/events/participant";
+		JSONObject obj = new JSONObject();
+		try{
+			obj.put("event", message[7]);
+		}
+		catch(JSONException e){
+			
+		}
+		BackendSync.getInstance(this).addRequest(Request.Method.POST, url ,obj,response.participateListener,response.participateErrorlistener);
 	}
 	
 }

@@ -96,8 +96,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginRight="17dp"
-        android:onClick="delete"
-        android:text="@string/delete" 
+        android:onClick="participate"
+        android:text="@string/I_m_in" 
         android:textColor="#fff"
         android:background="@drawable/rounded_edittext"
         android:layout_marginLeft="70dp"/>
